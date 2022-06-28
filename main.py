@@ -105,7 +105,7 @@ def getNewHackathons(q:Optional[str] = None, page:int = 0, per_page: int = 10,on
     result['meta']['page'] = page
     result['meta']['per_page'] = per_page
     query = {'datetimeStart':{'$gte':datetime.now()}}
-    if ongoing:
+    if ongoing == True:
         query['datetimeStart'] = {'$lte':datetime.now()}
         query['datetimeEnd'] = {'$gte':datetime.now()}
     if q:
