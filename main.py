@@ -99,7 +99,7 @@ def getDevfolioHackathons(q:Optional[str] = None, page:int = 0, per_page: int = 
         i['_id'] = str(i['_id'])
     return result
 @app.get('/new')
-def getNewHackathons(q:Optional[str] = None, page:int = 0, per_page: int = 10,ongoing = False):
+def getNewHackathons(q:Optional[str] = None, page:int = 0, per_page: int = 10,ongoing:bool = False):
     result = {'meta':{}, 'data':[]}
     result['meta']['query'] = q
     result['meta']['page'] = page
