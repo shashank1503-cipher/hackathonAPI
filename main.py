@@ -88,7 +88,7 @@ def getDevfolioHackathons(q:Optional[str] = None, page:int = 0, per_page: int = 
     if q:
         query['name'] = {'$regex': q}
     fetch_query = db['Hackathons'].find(query)
-    fetch_count = fetch_query.count()
+    fetch_count = db['Hackathons'].count_documents(query)
     if not fetch_count:
         raise HTTPException(status_code=404, detail = 'No Hackathons Found' )
     
