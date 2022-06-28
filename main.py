@@ -27,7 +27,7 @@ def getDevpostHackathons(q:Optional[str] = None, page:int = 0, per_page: int = 1
     if q:
         query['name'] = {'$regex': q}
     fetch_query = db['Hackathons'].find(query)
-    fetch_count = fetch_query.count()
+    fetch_count = db['Hackathons'].count_documents(query)
     if not fetch_count:
         raise HTTPException(status_code=404, detail = 'No Hackathons Found' )
     
@@ -47,7 +47,7 @@ def getMLHHackathons(q:Optional[str] = None, page:int = 0, per_page: int = 10):
     if q:
         query['name'] = {'$regex': q}
     fetch_query = db['Hackathons'].find(query)
-    fetch_count = fetch_query.count()
+    fetch_count = db['Hackathons'].count_documents(query)
     if not fetch_count:
         raise HTTPException(status_code=404, detail = 'No Hackathons Found' )
     
@@ -99,7 +99,7 @@ def getNewHackathons(q:Optional[str] = None, page:int = 0, per_page: int = 10,on
     if q:
         query['name'] = {'$regex': q}
     fetch_query = db['Hackathons'].find(query)
-    fetch_count = fetch_query.count()
+    fetch_count = db['Hackathons'].count_documents(query)
     if not fetch_count:
         raise HTTPException(status_code=404, detail = 'No Hackathons Found' )
     result['meta']['total'] = fetch_count
@@ -118,7 +118,7 @@ def getAllHackathons(q:Optional[str] = None, page:int = 0, per_page: int = 10):
     if q:
         query['name'] = {'$regex': q}
     fetch_query = db['Hackathons'].find(query)
-    fetch_count = fetch_query.count()
+    fetch_count = db['Hackathons'].count_documents(query)
     if not fetch_count:
         raise HTTPException(status_code=404, detail = 'No Hackathons Found' )
     result['meta']['total'] = fetch_count
