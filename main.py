@@ -44,7 +44,7 @@ def getMLHHackathons(q:Optional[str] = None, page:int = 0, per_page: int = 10):
     result['meta']['query'] = q
     result['meta']['page'] = page
     result['meta']['per_page'] = per_page
-    query = {'website':'MLH'}
+    query = {'website':'mlh.io'}
     if q:
         query['name'] = {'$regex': q}
     fetch_query = db['Hackathons'].find(query)
