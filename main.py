@@ -4,7 +4,7 @@ from typing import Optional
 from fastapi import FastAPI,HTTPException
 import pymongo
 from bson.objectid import ObjectId
-
+from fastapi.middleware.cors import CORSMiddleware
 
 client = pymongo.MongoClient("mongodb+srv://Admin:AdminHackBot@hackbot.g1uz8.mongodb.net/HackBot?retryWrites=true&w=majority")
 db = client["HackBot"]
@@ -13,7 +13,18 @@ db = client["HackBot"]
 
 app = FastAPI()
 
+origins = [
+    "http://localhost",
+    "http://localhost:3000",
+]
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 @app.get("/")
 def home():
     routes = [{'/devpost':'Returns Devpost Hackathons'},{'/mlh':'Returns MLH Hackathons'},{'/all':'Returns all Hackathons'},{'/hackathons/{id}':'Returns a specific Hackathon'},{'/devfolio':'Returns Devfolio Hackathons'},{'/new':'Returns new Hackathons'}]
