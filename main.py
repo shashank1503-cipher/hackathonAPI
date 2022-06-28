@@ -16,7 +16,7 @@ app = FastAPI()
 
 @app.get("/")
 def home():
-    routes = [{'/devpost':'Returns Devpost Hackathons'},{'/mlh','Returns MLH Hackathons'},{'/all','Returns all Hackathons'},{'/hackathons/{id}','Returns a specific Hackathon'},{'/devfolio':'Returns Devfolio Hackathons'},{'/new':'Returns new Hackathons'}]
+    routes = [{'/devpost':'Returns Devpost Hackathons'},{'/mlh':'Returns MLH Hackathons'},{'/all':'Returns all Hackathons'},{'/hackathons/{id}':'Returns a specific Hackathon'},{'/devfolio':'Returns Devfolio Hackathons'},{'/new':'Returns new Hackathons'}]
     return routes
 @app.get("/devpost")
 def getDevpostHackathons(q:Optional[str] = None, page:int = 0, per_page: int = 10):
