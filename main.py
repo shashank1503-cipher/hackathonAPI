@@ -37,7 +37,7 @@ def getDevpostHackathons(q:Optional[str] = None, page:int = 0, per_page: int = 1
     result['meta']['per_page'] = per_page
     query = {'website':'DEVPOST'}
     if q:
-        query['name'] = {'$regex': q}
+        query['name'] = {'$regex': q,'$options':'i'}
     fetch_query = db['Hackathons'].find(query)
     fetch_count = db['Hackathons'].count_documents(query)
     if not fetch_count:
@@ -57,7 +57,7 @@ def getMLHHackathons(q:Optional[str] = None, page:int = 0, per_page: int = 10):
     result['meta']['per_page'] = per_page
     query = {'website':'mlh.io'}
     if q:
-        query['name'] = {'$regex': q}
+        query['name'] = {'$regex': q,'$options':'i'}
     fetch_query = db['Hackathons'].find(query)
     fetch_count = db['Hackathons'].count_documents(query)
     if not fetch_count:
@@ -86,7 +86,7 @@ def getDevfolioHackathons(q:Optional[str] = None, page:int = 0, per_page: int = 
     result['meta']['per_page'] = per_page
     query = {'website':'DEVFOLIO'}
     if q:
-        query['name'] = {'$regex': q}
+        query['name'] = {'$regex': q,'$options':'i'}
     fetch_query = db['Hackathons'].find(query)
     fetch_count = fetch_query.count()
     if not fetch_count:
@@ -99,17 +99,18 @@ def getDevfolioHackathons(q:Optional[str] = None, page:int = 0, per_page: int = 
         i['_id'] = str(i['_id'])
     return result
 @app.get('/new')
-def getNewHackathons(q:Optional[str] = None, page:int = 0, per_page: int = 10,ongoing = False):
+def getNewHackathons(q:Optional[str] = None, page:int = 0, per_page: int = 10,ongoing:bool = False):
     result = {'meta':{}, 'data':[]}
     result['meta']['query'] = q
     result['meta']['page'] = page
     result['meta']['per_page'] = per_page
+    result['meta']['ongoing'] = ongoing
     query = {'datetimeStart':{'$gte':datetime.now()}}
     if ongoing:
         query['datetimeStart'] = {'$lte':datetime.now()}
         query['datetimeEnd'] = {'$gte':datetime.now()}
     if q:
-        query['name'] = {'$regex': q}
+        query['name'] = {'$regex': q,'$options':'i'}
     fetch_query = db['Hackathons'].find(query)
     fetch_count = db['Hackathons'].count_documents(query)
     if not fetch_count:
@@ -128,7 +129,7 @@ def getAllHackathons(q:Optional[str] = None, page:int = 0, per_page: int = 10):
     result['meta']['per_page'] = per_page
     query = {}
     if q:
-        query['name'] = {'$regex': q}
+        query['name'] = {'$regex': q,'$options':'i'}
     fetch_query = db['Hackathons'].find(query)
     fetch_count = db['Hackathons'].count_documents(query)
     if not fetch_count:
