@@ -45,7 +45,7 @@ def getDevpostHackathons(q:Optional[str] = None, page:int = 0, per_page: int = 1
     
     result['meta']['total'] = fetch_count
     result['meta']['total_pages'] = fetch_count // per_page+1
-    result['data'] = list(fetch_query.skip(page * per_page).limit(per_page))
+    result['data'] = list(fetch_query.sort("datetimeStart").skip(page * per_page).limit(per_page))
     for i in result['data']:
         i['_id'] = str(i['_id'])
     return result
@@ -65,7 +65,7 @@ def getMLHHackathons(q:Optional[str] = None, page:int = 0, per_page: int = 10):
     
     result['meta']['total'] = fetch_count
     result['meta']['total_pages'] = fetch_count // per_page+1
-    result['data'] = list(fetch_query.skip(page * per_page).limit(per_page))
+    result['data'] = list(fetch_query.sort("datetimeStart").skip(page * per_page).limit(per_page))
     for i in result['data']:
         i['_id'] = str(i['_id'])
     return result
@@ -94,7 +94,7 @@ def getDevfolioHackathons(q:Optional[str] = None, page:int = 0, per_page: int = 
     
     result['meta']['total'] = fetch_count
     result['meta']['total_pages'] = fetch_count // per_page+1
-    result['data'] = list(fetch_query.skip(page * per_page).limit(per_page))
+    result['data'] = list(fetch_query.sort("datetimeStart").skip(page * per_page).limit(per_page))
     for i in result['data']:
         i['_id'] = str(i['_id'])
     return result
@@ -136,7 +136,7 @@ def getAllHackathons(q:Optional[str] = None, page:int = 0, per_page: int = 10):
         raise HTTPException(status_code=404, detail = 'No Hackathons Found' )
     result['meta']['total'] = fetch_count
     result['meta']['total_pages'] = fetch_count // per_page+1
-    result['data'] = list(fetch_query.skip(page * per_page).limit(per_page))
+    result['data'] = list(fetch_query.sort("datetimeStart").skip(page * per_page).limit(per_page))
     for i in result['data']:
         i['_id'] = str(i['_id'])
     return result
