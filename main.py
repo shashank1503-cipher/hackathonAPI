@@ -88,7 +88,7 @@ def getDevfolioHackathons(q:Optional[str] = None, page:int = 0, per_page: int = 
     if q:
         query['name'] = {'$regex': q,'$options':'i'}
     fetch_query = db['Hackathons'].find(query)
-    fetch_count = fetch_query.count()
+    fetch_count = db['Hackathons'].count_documents(query)
     if not fetch_count:
         raise HTTPException(status_code=404, detail = 'No Hackathons Found' )
     
@@ -106,7 +106,7 @@ def getNewHackathons(q:Optional[str] = None, page:int = 0, per_page: int = 10,on
     result['meta']['per_page'] = per_page
     result['meta']['ongoing'] = ongoing
     query = {'datetimeStart':{'$gte':datetime.now()}}
-    if ongoing:
+    if ongoing == True:
         query['datetimeStart'] = {'$lte':datetime.now()}
         query['datetimeEnd'] = {'$gte':datetime.now()}
     if q:
