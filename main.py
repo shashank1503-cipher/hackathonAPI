@@ -96,7 +96,7 @@ def getDevfolioHackathons(q:Optional[str] = None, page:int = 0, per_page: int = 
     
     result['meta']['total'] = fetch_count
     result['meta']['total_pages'] = fetch_count // per_page+1
-    result['data'] = list(fetch_query.sort("datetimeStart").skip(page * per_page).limit(per_page))
+    result['data'] = list(fetch_query.sort("datetimeStart",-1).skip(page * per_page).limit(per_page))
     for i in result['data']:
         i['_id'] = str(i['_id'])
     return result
