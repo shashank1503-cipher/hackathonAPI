@@ -1,7 +1,9 @@
 import datetime
 import pymongo
+MONGO_URI = os.environ.get('MONGO_URI')
+client = pymongo.MongoClient(MONGO_URI)
 
-client = pymongo.MongoClient("mongodb+srv://Admin:AdminHackBot@hackbot.g1uz8.mongodb.net/HackBot?retryWrites=true&w=majority")
+
 db = client["HackBot"]
 
 
